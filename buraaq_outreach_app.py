@@ -15,7 +15,9 @@ def get_gsheet_client():
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive"
     ]
-    creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
+    # This is the line that needs to be changed:
+    # It now reads credentials directly from Streamlit's secrets
+    creds = Credentials.from_service_account_info(st.secrets["gsheets_credentials"], scopes=scopes)
     client = gspread.authorize(creds)
     return client
 
